@@ -6,6 +6,10 @@ const Table = () => {
   const [hiddenColumns, setHiddenColumns] = useState([]);
   const [perPage, setPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
+
+  const indexOfLastItem = currentPage * perPage;
+  const indexOfFirstItem = indexOfLastItem - perPage;
+  const currentPageData = data.slice(indexOfFirstItem, indexOfLastItem);
   const columns = [
     {
       name: "ID",
@@ -68,10 +72,14 @@ const Table = () => {
     setCurrentPage(page); // Update current page state
     console.log("Current page:", page); // Log current page to console
   };
+
+  useEffect(() => {
+    console.log("currentPageData", currentPageData);
+  }, [currentPageData]);
   return (
     <div>
       <h1>Sample Data Table</h1>
-      <ExcelExportComponent data={data} />
+      <ExcelExportComponent data={currentPageData} />
       <div>
         <h3>Toggle Columns</h3>
         {columns.map((col) => (
@@ -91,7 +99,7 @@ const Table = () => {
         data={data}
         pagination
         paginationPerPage={perPage} // Apply the number of rows per page
-        paginationRowsPerPageOptions={[5, 10, 20]} // Custom options for rows per page
+        paginationRowsPerPageOptions={[10, 25, 50]} // Custom options for rows per page
         paginationComponentOptions={paginationOptions}
         onChangePage={handlePageChange}
         highlightOnHover
