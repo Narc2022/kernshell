@@ -78,7 +78,6 @@ const Table = () => {
   }, [currentPageData]);
   return (
     <div>
-      <h1>Sample Data Table</h1>
       <ExcelExportComponent data={currentPageData} />
       <div>
         <h3>Toggle Columns</h3>
