@@ -61,16 +61,16 @@ const Table = () => {
     );
   };
   const paginationOptions = {
-    rowsPerPage: perPage, // Number of rows per page
+    rowsPerPage: perPage,
     onChangeRowsPerPage: (newPerPage) => setPerPage(newPerPage),
     rowsPerPageText: "Rows per page",
     rangeSeparatorText: "of",
-    noRowsPerPage: false, // If false, it will display rows per page options
+    noRowsPerPage: false,
   };
 
   const handlePageChange = (page) => {
-    setCurrentPage(page); // Update current page state
-    console.log("Current page:", page); // Log current page to console
+    setCurrentPage(page);
+    console.log("Current page:", page);
   };
 
   useEffect(() => {
@@ -97,8 +97,8 @@ const Table = () => {
         columns={columns}
         data={data}
         pagination
-        paginationPerPage={perPage} // Apply the number of rows per page
-        paginationRowsPerPageOptions={[10, 25, 50]} // Custom options for rows per page
+        paginationPerPage={perPage}
+        paginationRowsPerPageOptions={[10, 25, 50]}
         paginationComponentOptions={paginationOptions}
         onChangePage={handlePageChange}
         highlightOnHover

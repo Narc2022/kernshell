@@ -13,15 +13,13 @@ function ExcelExportComponent({ data }) {
       subject: item.subject,
       interest: item.interest,
       lastBookRead: item.lastBookRead,
-      Email: item.contact.email, // Flattened email
-      Phone: item.contact.phone, // Flattened phone
+      Email: item.contact.email,
+      Phone: item.contact.phone,
     }));
   };
   const exportToExcel = () => {
-    // Flatten the data before passing it to json_to_sheet
     const flattenedData = flattenData(data);
 
-    // Ensure flattenedData is an array
     if (!Array.isArray(flattenedData)) {
       console.error("Data is not an array.");
       return;
@@ -31,7 +29,6 @@ function ExcelExportComponent({ data }) {
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
 
-    // Buffer to store the generated Excel file
     const excelBuffer = XLSX.write(workbook, {
       bookType: "xlsx",
       type: "array",
