@@ -3,9 +3,7 @@ import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 
 function ExcelExportComponent({ data }) {
-  console.log("data", data);
   const flattenData = (data) => {
-    console.log("data", data);
     return data.map((item) => ({
       id: item.id,
       personName: item.personName,
@@ -17,11 +15,11 @@ function ExcelExportComponent({ data }) {
       Phone: item.contact.phone,
     }));
   };
+
   const exportToExcel = () => {
     const flattenedData = flattenData(data);
 
     if (!Array.isArray(flattenedData)) {
-      console.error("Data is not an array.");
       return;
     }
 

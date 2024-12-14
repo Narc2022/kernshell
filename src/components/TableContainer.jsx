@@ -1,12 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+
+// library
 import DataTable from "react-data-table-component";
+
+// Data
 import data from "../api/data.json";
+
+// Components
 import ExcelExportComponent from "./ExcelExportComponent";
 import Filter from "./Filter";
+
 const TableContainer = () => {
-  const [hiddenColumns, setHiddenColumns] = useState([]);
   const [perPage, setPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
+  const [hiddenColumns, setHiddenColumns] = useState([]);
   const indexOfLastItem = currentPage * perPage;
   const indexOfFirstItem = indexOfLastItem - perPage;
   const currentPageData = data.slice(indexOfFirstItem, indexOfLastItem);
@@ -60,6 +67,7 @@ const TableContainer = () => {
         : [...prev, columnName]
     );
   };
+
   const paginationOptions = {
     rowsPerPage: perPage,
     onChangeRowsPerPage: (newPerPage) => setPerPage(newPerPage),
@@ -70,17 +78,13 @@ const TableContainer = () => {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    console.log("Current page:", page);
   };
 
-  useEffect(() => {
-    console.log("currentPageData", currentPageData);
-  }, [currentPageData]);
   return (
     <div className="h-auto lg:h-[100vh] block md:block lg:flex">
       <div className="p-5 bg-black text-white lg:w-[250px] ">
         <h1 className="text-4xl font-bold text-white-500 text-center p-3 block lg:hidden">
-          kernshell dashboard
+          Kernshell Dashboard
         </h1>
         <ExcelExportComponent data={currentPageData} />
         <Filter
@@ -91,7 +95,7 @@ const TableContainer = () => {
       </div>
       <div className="w-full">
         <h1 className="text-4xl font-bold text-gray-800 text-center p-3 hidden lg:block">
-          kernshell dashboard
+          Kernshell Dashboard
         </h1>
         <div style={{ maxHeight: "90vh", overflowY: "auto" }}>
           <DataTable

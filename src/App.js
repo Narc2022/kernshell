@@ -1,4 +1,3 @@
-import "./App.css";
 import TableContainer from "./components/TableContainer";
 
 function App() {
