@@ -4,7 +4,7 @@ import data from "../api/data.json";
 import ExcelExportComponent from "./ExcelExportComponent";
 const Table = () => {
   const [hiddenColumns, setHiddenColumns] = useState([]);
-  const [perPage, setPerPage] = useState(5);
+  const [perPage, setPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const columns = [
     {
