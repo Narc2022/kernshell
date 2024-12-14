@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import data from "../api/data.json";
 import ExcelExportComponent from "./ExcelExportComponent";
-const Table = () => {
+import Filter from "./Filter";
+const TableContainer = () => {
   const [hiddenColumns, setHiddenColumns] = useState([]);
   const [perPage, setPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
-
   const indexOfLastItem = currentPage * perPage;
   const indexOfFirstItem = indexOfLastItem - perPage;
   const currentPageData = data.slice(indexOfFirstItem, indexOfLastItem);
@@ -77,34 +77,37 @@ const Table = () => {
     console.log("currentPageData", currentPageData);
   }, [currentPageData]);
   return (
-    <div>
-      <ExcelExportComponent data={currentPageData} />
-      <div>
-        <h3>Toggle Columns</h3>
-        {columns.map((col) => (
-          <label key={col.name} style={{ marginRight: "10px" }}>
-            <input
-              type="checkbox"
-              checked={!hiddenColumns.includes(col.name)}
-              onChange={() => handleToggleColumn(col.name)}
-            />
-            {col.name}
-          </label>
-        ))}
+    <div className="h-auto lg:h-[100vh] block md:block lg:flex">
+      <div className="p-5 bg-black text-white lg:w-[250px] ">
+        <h1 className="text-4xl font-bold text-white-500 text-center p-3 block lg:hidden">
+          kernshell dashboard
+        </h1>
+        <ExcelExportComponent data={currentPageData} />
+        <Filter
+          columns={columns}
+          hiddenColumns={hiddenColumns}
+          handleToggleColumn={handleToggleColumn}
+        />
       </div>
-
-      <DataTable
-        columns={columns}
-        data={data}
-        pagination
-        paginationPerPage={perPage}
-        paginationRowsPerPageOptions={[10, 25, 50]}
-        paginationComponentOptions={paginationOptions}
-        onChangePage={handlePageChange}
-        highlightOnHover
-      />
+      <div className="w-full">
+        <h1 className="text-4xl font-bold text-gray-800 text-center p-3 hidden lg:block">
+          kernshell dashboard
+        </h1>
+        <div style={{ maxHeight: "90vh", overflowY: "auto" }}>
+          <DataTable
+            columns={columns}
+            data={data}
+            pagination
+            paginationPerPage={perPage}
+            paginationRowsPerPageOptions={[10, 25, 50]}
+            paginationComponentOptions={paginationOptions}
+            onChangePage={handlePageChange}
+            highlightOnHover
+          />
+        </div>
+      </div>
     </div>
   );
 };
 
-export default Table;
+export default TableContainer;
